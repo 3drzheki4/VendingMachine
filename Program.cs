@@ -1,4 +1,4 @@
-﻿
+
 namespace MyNamespace
 
 {
@@ -48,13 +48,10 @@ namespace MyNamespace
 		{
 
 		}
-		public Buyer(int money)
-		{
-			Money = money;
-		}
+		public Buyer(int money) => Money = money;
 		public void ShowBalance()
 		{
-			Console.WriteLine($"Ваш баланс: {Money}");
+			Console.WriteLine($"Ваш баланс: {Money} {VendingMachine.PluralizeRubles(Money)}.");
 		}
 		public void SpendMoney(int price)
 		{
@@ -112,20 +109,21 @@ namespace MyNamespace
 			}
 			catch
 			{
-				ShowWorningNotice("Нужно ввести целое число!");
+				ShowWarningNotice("Нужно ввести целое число!");
 				return;
 			}
 			if (request > Products.Count || request <= 0)
 			{
-				ShowWorningNotice("Товар с таким номером отсутствует");
+				ShowWarningNotice("Товар с таким номером отсутствует");
 				return;
 			}
 			if (Products[request - 1].Price > buyer.Money)
 			{
-				ShowWorningNotice("Недостаточно денег");
+				ShowWarningNotice("Недостаточно денег");
 				return;
 			}
 			buyer.SpendMoney(Products[request - 1].Price);
+			ShowWarningNotice($"Вы купили {Products[request - 1].Name}", ConsoleColor.Green);
 		}
 		public static string PluralizeRubles(int count)
 		{
@@ -144,9 +142,15 @@ namespace MyNamespace
 					return "рублей";
 			}
 		}
-		public static void ShowWorningNotice(string message)
+		public static void ShowWarningNotice(string message)
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine(message);
+			Console.ForegroundColor = ConsoleColor.Gray;
+		}
+		public static void ShowWarningNotice(string message, ConsoleColor color)
+		{
+			Console.ForegroundColor = color;
 			Console.WriteLine(message);
 			Console.ForegroundColor = ConsoleColor.Gray;
 		}
