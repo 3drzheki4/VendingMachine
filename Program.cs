@@ -56,7 +56,7 @@ namespace MyNamespace
 		}
 		public bool SpendMoney(int count)
 		{
-			if (count > Money)
+			if (count >= Money)
 			{
 				VendingMachine.ShowWarningNotice("Недостаточно денег");
 				return false;
