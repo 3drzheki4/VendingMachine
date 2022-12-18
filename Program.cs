@@ -1,5 +1,3 @@
-
-
 namespace MyNamespace
 
 {
@@ -45,10 +43,7 @@ namespace MyNamespace
 	{
 		public int Money { get; private set; }
 
-		Buyer()
-		{
-
-		}
+		Buyer() => Money = 0;
 		public Buyer(int money) => Money = money;
 		public void ShowBalance()
 		{
@@ -84,15 +79,9 @@ namespace MyNamespace
 	}
 	public class VendingMachine
 	{
-		public VendingMachine ()
-		{
-
-		}
-		public VendingMachine(IEnumerable<Product> products)
-		{
-			Products = new List<Product>(products);
-		}
-		public List<Product>? Products { get; }
+		public VendingMachine() => Products = new List<Product>();
+		public VendingMachine(IEnumerable<Product> products) => Products = new List<Product>(products);
+		public List<Product> Products { get; }
 
 		public void ShowProducts()
 		{
@@ -146,9 +135,7 @@ namespace MyNamespace
 		}
 		public static void ShowWarningNotice(string message)
 		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine(message);
-			Console.ForegroundColor = ConsoleColor.Gray;
+			ShowWarningNotice(message, ConsoleColor.Red);
 		}
 		public static void ShowWarningNotice(string message, ConsoleColor color)
 		{
