@@ -1,4 +1,5 @@
 
+
 namespace MyNamespace
 
 {
@@ -53,9 +54,15 @@ namespace MyNamespace
 		{
 			Console.WriteLine($"Ваш баланс: {Money} {VendingMachine.PluralizeRubles(Money)}.");
 		}
-		public void SpendMoney(int price)
+		public bool SpendMoney(int count)
 		{
-			Money -= price;
+			if (count > Money)
+			{
+				VendingMachine.ShowWarningNotice("Недостаточно денег");
+				return false;
+			}
+			Money -= count;
+			return true;
 		}
 	}
 	public class Product
@@ -117,13 +124,8 @@ namespace MyNamespace
 				ShowWarningNotice("Товар с таким номером отсутствует");
 				return;
 			}
-			if (Products[request - 1].Price > buyer.Money)
-			{
-				ShowWarningNotice("Недостаточно денег");
-				return;
-			}
-			buyer.SpendMoney(Products[request - 1].Price);
-			ShowWarningNotice($"Вы купили {Products[request - 1].Name}", ConsoleColor.Green);
+			if(buyer.SpendMoney(Products[request - 1].Price))
+				ShowWarningNotice($"Вы купили {Products[request - 1].Name}", ConsoleColor.Green);
 		}
 		public static string PluralizeRubles(int count)
 		{
