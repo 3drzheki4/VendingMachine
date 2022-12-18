@@ -24,6 +24,8 @@ namespace MyNamespace
 			try
 			{
 				me = new Buyer(int.Parse(Console.ReadLine()));
+				if (me.Money < 0)
+					throw new Exception();
 			}
 			catch
 			{
